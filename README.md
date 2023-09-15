@@ -1,27 +1,32 @@
-# React + TypeScript + Vite
+# Locadora de Filmes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto consiste em uma aplicação web responsiva que utiliza a API do OMDb para obter informações sobre filmes. A API oferece um serviço RESTful para buscar dados de filmes, incluindo título, ano de lançamento e pôster. Os dados são contribuídos e mantidos pela comunidade de usuários.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Busca de filmes por palavra-chave no título.
+- Navegação pelos resultados paginados.
+- Visualização detalhada de cada filme, exibindo:
+  - Título do filme
+  - Ano de lançamento
+  - Diretor
+  - País
+  - Tempo de duração
+  - Descrição do enredo (plot)
+  - Imagem do pôster
 
-## Expanding the ESLint configuration
+## Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React
+- Vite
+- Vitest (Testes Unitários)
+- API OMDb (http://www.omdbapi.com/)
 
-- Configure the top-level `parserOptions` property like this:
+## Configuração
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+Para rodar o projeto localmente, siga os passos abaixo:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Clone este repositório.
+2. Instale as dependências com `npm i ou yarn`.
+3. Crie um arquivo `.env` e adicione sua `VITE_API_KEY` conforme o exemplo em `.env.example`.
+4. Inicie a aplicação com `npm run dev ou yarn dev`.
