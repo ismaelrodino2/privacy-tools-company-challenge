@@ -42,7 +42,7 @@ const Movie = () => {
   }, [getData]);
 
   return (
-    <div className="flex flex-col md:flex-row p-10 h-screen overflow-auto">
+    <div className="flex flex-col md:flex-row p-10 h-screen overflow-auto w-full">
       <Link to={"/"}>
         <div
           className="fixed bg-variation-primary bg-opacity-50 left-22 top-10 text-2xl border border-white p-2 rounded-full"
@@ -77,7 +77,7 @@ const Movie = () => {
           </div>
         </div>
       ) : (
-        <div className="flex w-full gap-6">
+        <div className="flex flex-col md:flex-row w-full gap-6">
           <SkeletonImage active style={{ width: "300px", height: "500px" }} />
           <Skeleton active />
         </div>

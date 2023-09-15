@@ -7,14 +7,12 @@ import Sidebar from "./components/SideNav";
 function App() {
   return (
     <div>
-      <div className="flex min-h-screen bg-primary">
+      <div className="flex h-screen bg-primary">
         <Sidebar />
-        <div className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="movie/:movieId" element={<Movie />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="movie/:movieId" element={<Movie />} />
+        </Routes>
       </div>
     </div>
   );
