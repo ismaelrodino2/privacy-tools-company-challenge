@@ -12,7 +12,9 @@ export default {
       primary: "#1a0f5f",
       "variation-primary": "#352284",
       secondary: "#5830ca",
-      white: "#FFFFFF"
+      white: "#FFFFFF",
+      skeleton: '#f0f0f0'
+
     },
     extend: {},
   },

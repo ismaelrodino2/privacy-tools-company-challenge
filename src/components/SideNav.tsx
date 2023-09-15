@@ -26,11 +26,14 @@ const Sidebar = () => {
       <div className="flex-1 flex flex-col justify-center">
         <ul className="text-center flex gap-2 flex-col">
           <li className="mb-2 cursor-pointer" onClick={handleSearch}>
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
+            <FontAwesomeIcon
+              data-testid="search-icon"
+              icon={faMagnifyingGlass}
+            />
           </li>
           <li className="mb-2 cursor-pointer">
             <Link to={"/"}>
-              <FontAwesomeIcon icon={faHouse} />
+              <FontAwesomeIcon data-testid="home-icon" icon={faHouse} />
             </Link>
           </li>
         </ul>

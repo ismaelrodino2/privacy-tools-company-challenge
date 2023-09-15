@@ -11,10 +11,9 @@ function App() {
         <Sidebar />
         <div className="flex-1">
           <Routes>
-             <Route path="/" element={<Home />} />
-             <Route path="movie/:movieId" element={<Movie />} />
-
-           </Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="movie/:movieId" element={<Movie />} />
+          </Routes>
         </div>
       </div>
     </div>

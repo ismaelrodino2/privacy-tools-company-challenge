@@ -5,34 +5,48 @@ import CardContent from "../components/CardContent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { Pagination } from 'antd';
-
-type FormData = {
-  target: {
-    elements: {
-      searchInput: {
-        value: string;
-      };
-    };
-  };
-}
+import { Pagination, notification } from "antd";
+import SkeletonImage from "antd/es/skeleton/Image";
 
 export default function Home() {
   const [data, setData] = useState<Movies | null>(null);
   const [searchTerm, setSearchTerm] = useState("batman");
   const [isLoading, setIsLoading] = useState(true);
   const [current, setCurrent] = useState(1);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleChange = (page: number) => {
+    setCurrent(page);
+    setImageLoaded(false);
+  };
 
   const getData = useCallback(async () => {
     setIsLoading(true);
-    const response = await fetch(
-      `http://www.omdbapi.com/?s=${searchTerm}&page=${current}&r=json&apikey=${
-        import.meta.env.VITE_API_KEY
-      }`
-    );
-    const data = await response.json();
-    setData(data);
-    setIsLoading(false);
+
+    try {
+      const response = await fetch(
+        `http://www.omdbapi.com/?s=${searchTerm}&page=${current}&r=json&apikey=${
+          import.meta.env.VITE_API_KEY
+        }`
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Erro ao carregar os dados. Status: ${response.status}`
+        );
+      }
+
+      const result = await response.json();
+      setData(result);
+    } catch (error) {
+      console.error(error);
+      notification.error({
+        message: "Erro",
+        description: "Ocorreu um erro ao carregar os dados.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }, [searchTerm, current]);
 
   useEffect(() => {
@@ -41,9 +55,13 @@ export default function Home() {
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { target } = e.target as typeof e.target & FormData;
-    setSearchTerm(target.elements.searchInput.value);
-    getData();
+    const searchInput = document.querySelector(
+      'input[name="searchInput"]'
+    ) as HTMLInputElement | null;
+    if (searchInput) {
+      setSearchTerm(searchInput.value);
+      getData();
+    }
   };
 
   return (
@@ -74,11 +92,29 @@ export default function Home() {
                   className="w-[240px] bg-primary border-primary"
                   bodyStyle={{ padding: "4px" }}
                   cover={
-                    <img
-                      className="h-[360px]"
-                      alt={movie.Title}
-                      src={movie.Poster}
-                    />
+                    <>
+                      {imageLoaded ? null : (
+                        <SkeletonImage
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "360px",
+                          }}
+                          active
+                        />
+                      )}
+                      <div className="h-[360px]">
+                        <img
+                          className="h-[360px]"
+                          alt={movie.Title}
+                          src={movie.Poster}
+                          onLoad={() => setImageLoaded(true)}
+                          style={{ display: imageLoaded ? "block" : "none" }}
+                        />
+                      </div>
+                    </>
                   }
                 >
                   <CardContent movie={movie} />
@@ -92,8 +128,8 @@ export default function Home() {
         total={data?.totalResults ? parseInt(data.totalResults) : 0}
         pageSize={10}
         current={current}
-        onChange={(page) => setCurrent(page)}
-        style={{ marginTop: '20px', textAlign: 'center' }}
+        onChange={(page) => handleChange(page)}
+        style={{ marginTop: "20px", textAlign: "center" }}
       />
     </div>
   );
