@@ -7,7 +7,7 @@ import Sidebar from "./components/SideNav";
 function App() {
   return (
     <div>
-      <div className="flex h-screen">
+      <div className="flex min-h-screen bg-primary">
         <Sidebar />
         <div className="flex-1">
           <Routes>
