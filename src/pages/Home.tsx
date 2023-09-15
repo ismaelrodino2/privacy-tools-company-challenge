@@ -5,6 +5,7 @@ import CardContent from "../components/CardContent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { Pagination } from 'antd';
 
 type FormData = {
   target: {
@@ -20,29 +21,29 @@ export default function Home() {
   const [data, setData] = useState<Movies | null>(null);
   const [searchTerm, setSearchTerm] = useState("batman");
   const [isLoading, setIsLoading] = useState(true);
+  const [current, setCurrent] = useState(1);
 
   const getData = useCallback(async () => {
-    const page = 1; // page from pagination
     setIsLoading(true);
     const response = await fetch(
-      `http://www.omdbapi.com/?s=${searchTerm}&page=${page}&r=json&apikey=${
+      `http://www.omdbapi.com/?s=${searchTerm}&page=${current}&r=json&apikey=${
         import.meta.env.VITE_API_KEY
       }`
     );
     const data = await response.json();
     setData(data);
     setIsLoading(false);
-  }, [searchTerm]);
-  // }, [searchTerm]);
+  }, [searchTerm, current]);
 
   useEffect(() => {
     getData();
   }, [getData]);
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevenir o comportamento padrão de um formulário (recarregar a página)
+    e.preventDefault();
     const { target } = e.target as typeof e.target & FormData;
     setSearchTerm(target.elements.searchInput.value);
+    getData();
   };
 
   return (
@@ -58,12 +59,11 @@ export default function Home() {
           placeholder="Pesquisar"
           className="bg-[transparent]  p-2 w-full text-white outline-none"
         />
-
         <button className="p-2 pr-4 rounded-r-3xl transition-background duration-1000 hover:bg-secondary">
           Pesquisar
         </button>
       </form>
-      <div className="flex justify-center flex-wrap gap-5 items-center h-full overflow-auto pt-28">
+      <div className="flex justify-center flex-wrap gap-5 items-center h-[calc(100vh-120px)] overflow-auto pt-28">
         {data?.Search?.map((movie: Movie) => {
           return (
             <div key={movie.imdbID}>
@@ -88,6 +88,13 @@ export default function Home() {
           );
         })}
       </div>
+      <Pagination
+        total={data?.totalResults ? parseInt(data.totalResults) : 0}
+        pageSize={10}
+        current={current}
+        onChange={(page) => setCurrent(page)}
+        style={{ marginTop: '20px', textAlign: 'center' }}
+      />
     </div>
   );
 }
