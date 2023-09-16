@@ -7,6 +7,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { Pagination, notification } from "antd";
 import SkeletonImage from "antd/es/skeleton/Image";
+import { apiDataMovies } from "../utils/functions";
 
 export default function Home() {
   const [data, setData] = useState<Movies | null>(null);
@@ -24,19 +25,7 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-        `http://www.omdbapi.com/?s=${searchTerm}&page=${current}&r=json&apikey=${
-          import.meta.env.VITE_API_KEY
-        }`
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          `Erro ao carregar os dados. Status: ${response.status}`
-        );
-      }
-
-      const result = await response.json();
+      const result = await apiDataMovies(searchTerm, current);
       setData(result);
     } catch (error) {
       console.error(error);
@@ -107,11 +96,13 @@ export default function Home() {
                       )}
                       <div className="h-[360px]">
                         <img
-                          className="h-[360px]"
                           alt={movie.Title}
                           src={movie.Poster}
                           onLoad={() => setImageLoaded(true)}
-                          style={{ display: imageLoaded ? "block" : "none" }}
+                          style={{
+                            display: imageLoaded ? "block" : "none",
+                            borderRadius: "12px",
+                          }}
                         />
                       </div>
                     </>

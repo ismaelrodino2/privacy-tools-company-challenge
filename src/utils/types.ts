@@ -38,4 +38,30 @@ export type MovieData = {
   Production: string;
   Website: string;
   Response: string;
+  totalSeasons? : number;
 };
+
+
+
+export type Episode ={
+  Title: string;
+  Released: string;
+  Episode: string;
+  imdbRating: string;
+  imdbID: string;
+}
+
+export type Season ={
+  Title: string;
+  Season: string;
+  totalSeasons: string;
+  Episodes: Episode[];
+}
+
+export type SeriesInfo ={
+  Title: string;
+  Season: string;
+  totalSeasons: string;
+  Episodes: Episode[];
+  Response: string;
+}
