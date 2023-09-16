@@ -67,7 +67,7 @@ const Movie = () => {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row w-full gap-6">
+          <div className="flex flex-col md:flex-row w-[calc(100vw-90px)] gap-6">
             <SkeletonImage active style={{ width: "300px", height: "500px" }} />
             <Skeleton active />
           </div>
