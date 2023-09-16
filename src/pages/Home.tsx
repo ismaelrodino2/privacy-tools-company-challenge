@@ -54,10 +54,10 @@ export default function Home() {
   };
 
   return (
-    <div className="text-primaryn h-full p-8 ">
+    <div className="text-primaryn h-full md:p-8 p-4">
       <form
         onSubmit={handleSearch}
-        className="items-center  w-[calc(100%-21px-16px-64px)] rounded-3xl  border-white bg-variation-primary bg-opacity-70 border inline-flex fixed top-5 z-10"
+        className="items-center  w-[calc(100%-21px-16px-74px)] rounded-3xl  border-white bg-variation-primary bg-opacity-70 border inline-flex fixed top-5 z-10"
       >
         <FontAwesomeIcon icon={faMagnifyingGlass} className="text-white mx-4" />
         <input
