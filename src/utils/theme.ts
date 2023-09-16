@@ -7,7 +7,7 @@ export const theme = {
         itemActiveColorDisabled: "#ffffff",
         itemActiveBg: "#5830ca",
         selectorBg: "#5830ca",
-        colorPrimary: "#5830ca",
+        colorPrimary: "#ffffff",
         colorBgBase: "#5830ca",
         colorPrimaryText: "#5830ca",
       },
