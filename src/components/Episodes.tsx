@@ -15,7 +15,7 @@ export const Episodes = ({
   const [seasons, setSeasons] = useState<Season | null>(null);
   const [season, setSeason] = useState<number>(1);
   const { movieId } = useParams();
-  
+
   const options = Array.from({ length: totalSeasons }, (_, index) => ({
     value: (index + 1).toString(),
     label: `Temporada - ${index + 1}`,
@@ -39,13 +39,16 @@ export const Episodes = ({
   };
   return (
     <div className="">
-      <div className="flex items-center md:pl-10 pl-4 py-10">
-        <div className="w-24 h-1 bg-[#e2e2e2] relative hidden md:flex">
+      <div
+        className="flex items-center md:pl-10 pl-4 pt-10"
+        style={{ boxShadow: "0 20px 40px 0 rgb(50, 21, 73, 0.5)" }}
+      >
+        <div className="w-24 h-[3px] bg-[#e2e2e2] relative hidden md:flex">
           <span className="absolute text-[#909090] -top-7 uppercase font-semibold">
             episódios
           </span>
         </div>
-        <div className="flex-grow h-1 relative  bg-[#90909091]">
+        <div className="flex-grow h-[3px] relative  bg-[#90909091]">
           <span className="pr-4 absolute text-[#909090] -top-7 md:left-24 uppercase font-semibold">
             Temporadas:
           </span>

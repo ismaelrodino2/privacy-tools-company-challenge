@@ -19,7 +19,7 @@ const Sidebar = () => {
     }
   };
   return (
-    <div className=" flex flex-col h-screen bg-gradient-to-b from-primary to-secondary p-4 text-white text-[20px]">
+    <div className=" flex flex-col h-screen bg-gradient-to-b from-primary to-secondary py-4 px-6 text-white text-[20px]">
       <h1 className="text-2xl font-bold mb-4">
         <FontAwesomeIcon icon={faUser} />
       </h1>
